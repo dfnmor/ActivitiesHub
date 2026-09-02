@@ -9,10 +9,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.11" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EventsHub.Application\EventsHub.Application.csproj" />
+    <ProjectReference Include="..\EventsHub.Persistence\EventsHub.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
