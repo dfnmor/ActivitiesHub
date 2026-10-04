@@ -1,0 +1,44 @@
+info:
+  name: Events - Edit- 204
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/events"
+  body:
+    type: json
+    data: |-
+      {
+        "id": "20f6e5c6-023a-4935-ab0c-72593b8cff2c",
+        "title": "{{$randomCatchPhrase}}",
+        "date": "{{$randomDateFuture}}",
+        "description": "{{$randomLoremParagraph}}",
+        "category": "music",
+        "isCancelled": false,
+        "city": "{{$randomCity}}",
+        "venue": "{{$randomStreetName}}",
+        "latitude": "21.0997",
+        "longitude": "-86.7561"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("Status code 404 not found", function(){
+          expect(res.getStatus()).to.equal(404);
+        })
+
+        test("Response returns an array", function(){
+          const body = res.getBody();
+          expect(body).to.equal("The event was not found");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
