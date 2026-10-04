@@ -16,9 +16,9 @@ runtime:
   scripts:
     - type: tests
       code: |-
-        test("Status code is 404 Not Found", function(){
+        test("Status code 404 not found", function(){
           expect(res.getStatus()).to.equal(404);
-        });
+        })
 
         test("Response returns an array", function(){
           const body = res.getBody();
