@@ -14,7 +14,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 });
 builder.Services.AddCors();
 builder.Services.AddMediatR(opt => 
-    opt.RegisterServicesFromAssemblyContaining<GetEventsList.Handler>()
+    opt.RegisterServicesFromAssemblyContaining<GetEventList.Handler>()
 );
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
