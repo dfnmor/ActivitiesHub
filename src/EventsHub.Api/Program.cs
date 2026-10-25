@@ -1,22 +1,22 @@
-using Microsoft.EntityFrameworkCore;
-using EventsHub.Persistence;
-using EventsHub.Application.Events.Queries;
 using EventsHub.Application.Core;
+using EventsHub.Application.Core.Mapping;
+using EventsHub.Application.Events.Queries;
+using EventsHub.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection"));
 });
 builder.Services.AddCors();
-builder.Services.AddMediatR(opt => 
+builder.Services.AddMediatR(opt =>
     opt.RegisterServicesFromAssemblyContaining<GetEventList.Handler>()
 );
-builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+builder.Services.AddMapper(typeof(MappingProfiles).Assembly);
 
 var app = builder.Build();
 
@@ -32,17 +32,15 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
 {
-    var context = services.GetRequiredService<AppDbContext>(); // Para ejecutar la migración de la BD
-        await context.Database.MigrateAsync(); // Este método es onligatorio, aplica cualquier migración pendiente para el contexto de la BD
-        await DbInitializer.SeedDataAsync(context); 
-    }
-
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error ocurred during migration/seeding");
+    var context = services.GetRequiredService<AppDbContext>();
+    await context.Database.MigrateAsync();
+    await DbInitializer.SeedDataAsync(context);
 }
-
+catch (Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred during database migration.");
+}
 
 app.MapControllers();
 
