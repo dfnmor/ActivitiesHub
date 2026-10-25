@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, Chip, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, Chip, Typography } from '@mui/material';
 
 type Props = {
     activity: Activity;
