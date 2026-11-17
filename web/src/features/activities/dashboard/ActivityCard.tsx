@@ -18,8 +18,8 @@ export default function ActivityCard({ activity, selectActivity, deleteActivity 
             <CardActions sx={{ display: 'flex', justifyContent: 'space-between', pb: 2 }}>
                 <Chip label={activity.category} variant="outlined" />
                 <Box sx={{displai: "flex", gap:3}}>
-                    <Button onClick={() => selectActivity(activity.id)} size="medium" variant="outlined">View</Button>
-                    <Button onClick={() => deleteActivity(activity.id)} size="medium" variant="contained" color="error">Delete</Button>
+                    <Button onClick={() => deleteActivity(activity.id)} size="medium" variant="outlined" color="error">Delete</Button>
+                    <Button onClick={() => selectActivity(activity.id)} size="medium" variant="contained">View</Button>
                 </Box>
             </CardActions>
         </Card>
